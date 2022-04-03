@@ -1,3 +1,5 @@
+const { Gender, Movie } = require("../sequelize")
+
 module.exports = (sequelize, type) => {
     const Movie = sequelize.define('movie', {
       tittle:{

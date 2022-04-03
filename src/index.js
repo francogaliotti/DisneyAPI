@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql');
 const app = express();
 const characterRoutes = require('./routes/characterRoutes')
+const movieRoutes = require('./routes/movieRoutes')
+const genderRoutes = require('./routes/genderRoutes')
 const {Sequelize} = require('./sequelize')
 
 //settings
@@ -15,6 +17,8 @@ app.get('/', (req, res) => {
     res.send('Welcome to my API')
 })
 app.use('/api/characters', characterRoutes);
+app.use('/api/movies', movieRoutes);
+app.use('/api/genders',genderRoutes);
 
 //start server
 app.listen(app.get('port'),() => {
