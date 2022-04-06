@@ -4,7 +4,7 @@ const app = express();
 const characterRoutes = require('./routes/characterRoutes')
 const movieRoutes = require('./routes/movieRoutes')
 const genderRoutes = require('./routes/genderRoutes')
-const {Sequelize} = require('./sequelize')
+const authRoutes = require('./routes/authRoutes')
 
 //settings
 app.set('port', process.env.PORT || 8080);
@@ -19,6 +19,7 @@ app.get('/', (req, res) => {
 app.use('/api/characters', characterRoutes);
 app.use('/api/movies', movieRoutes);
 app.use('/api/genders',genderRoutes);
+app.use('/api/auth', authRoutes);
 
 //start server
 app.listen(app.get('port'),() => {
