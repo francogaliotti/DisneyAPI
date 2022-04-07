@@ -11,7 +11,9 @@ const Gender = GenderModel(sequelize,Sequelize)
 const User = UserModel(sequelize,Sequelize)
 
 //Relations
-Movie.belongsTo(Gender);
+Movie.belongsTo(Gender, {
+    onDelete: 'CASCADE'
+});
 Gender.hasMany(Movie);
 Character.belongsToMany(Movie,{
     through: 'CharacterMovie'
@@ -22,7 +24,7 @@ Movie.belongsToMany(Character,{
 
 
 sequelize.authenticate().then(() => {
-    console.log('conectados a la bd')
+    console.log('Connected to DB')
 })
 
 sequelize.sync().then(()=>{

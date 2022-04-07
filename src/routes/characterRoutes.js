@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const routes = express.Router();
 const bodyParser = require('body-parser')
-const characterController = require('../controllers/characterController')
+const characterController = require('../controllers/characterController');
+const auth = require('../middlewares/auth');
+
 
 
 routes.get('/', characterController.getAllCharacters)
@@ -15,10 +17,10 @@ routes.get('/age/:age', characterController.getCharactersByAge)
 
 routes.get('/movie/:idMovie', characterController.getCharactersByMovie)
 
-routes.post('/', characterController.createCharacter)
+routes.post('/', auth, characterController.createCharacter)
 
-routes.put('/:id', characterController.updateCharacter)
+routes.put('/:id', auth, characterController.updateCharacter)
 
-routes.delete('/:id', characterController.deleteCharacter)
+routes.delete('/:id', auth, characterController.deleteCharacter)
 
 module.exports = routes

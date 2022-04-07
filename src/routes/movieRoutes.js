@@ -3,6 +3,7 @@ const app = express();
 const routes = express.Router();
 const bodyParser = require('body-parser')
 const movieController = require('../controllers/movieController')
+const auth = require('../middlewares/auth');
 
 
 routes.get('/', movieController.getAllMovies)
@@ -13,12 +14,12 @@ routes.get('/tittle/:tittle', movieController.getMovieByTittle)
 
 routes.get('/gender/:id', movieController.getMovieByGender)
 
-routes.post('/', movieController.createMovie)
+routes.post('/', auth, movieController.createMovie)
 
-routes.put('/setCharacters/:id', movieController.setCharacters)
+routes.put('/setCharacters/:id', auth, movieController.setCharacters)
 
-routes.put('/:id', movieController.updateMovie)
+routes.put('/:id', auth, movieController.updateMovie)
 
-routes.delete('/:id', movieController.deleteMovie)
+routes.delete('/:id', auth, movieController.deleteMovie)
 
 module.exports = routes
