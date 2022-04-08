@@ -21,6 +21,9 @@ app.use('/api/movies', movieRoutes);
 app.use('/api/genders',genderRoutes);
 app.use('/api/auth', authRoutes);
 
+//static images folder
+app.use('../images', express.static('../images'))
+
 //start server
 app.listen(app.get('port'),() => {
     console.log("Server on port", app.get('port'))

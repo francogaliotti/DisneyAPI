@@ -8,7 +8,7 @@ const auth = require('../middlewares/auth');
 
 routes.get('/', genderController.getAllGenders)
 
-routes.post('/', auth, genderController.createGender)
+routes.post('/', auth, genderController.upload, genderController.createGender)
 
 routes.delete('/:id', auth, genderController.deleteGender)
 

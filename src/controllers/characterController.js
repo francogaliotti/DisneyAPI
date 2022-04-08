@@ -1,7 +1,9 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const { Character, Movie } = require('../sequelize');
+const { Character, Movie } = require('../sequelize')
+const multer = require('multer');
+const path = require('path');
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -57,7 +59,7 @@ const getCharactersByMovie = (req, res) => {
             id: idMovie
         }
     }).then(movie => {
-        movie.getCharacters().then(characters =>{
+        movie.getCharacters().then(characters => {
             res.send(characters)
         })
     })
@@ -66,6 +68,7 @@ const getCharactersByMovie = (req, res) => {
 const createCharacter = (req, res) => {
     Character.create({
         name: req.body.name,
+        image: req.file.path,
         age: req.body.age,
         weight: req.body.weight,
         history: req.body.history
@@ -109,6 +112,31 @@ const deleteCharacter = (req, res) => {
     })
 }
 
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, 'images/characters')
+        },
+        filename: (req, file, cb) => {
+            cb(null, Date.now() + path.extname(file.originalname))
+        }
+    }),
+    limits: {
+        fileSize: '5000000' 
+    },
+    fileFilter: (req, file, cb) => {
+        const fileTypes = /jpeg|jpg|png|gif/
+        const mimType = fileTypes.test(file.mimetype)
+        const extName = fileTypes.test(path.extname(file.originalname))
+        console.log(extName , mimType)
+        if(mimType && extName){
+            return cb(null, true)
+        } else {
+            cb('Give proper files format to upload')
+        }
+    }
+}).single('image')
+
 module.exports = {
     getAllCharacters,
     getCharacterById,
@@ -117,5 +145,6 @@ module.exports = {
     getCharactersByMovie,
     createCharacter,
     updateCharacter,
-    deleteCharacter
+    deleteCharacter,
+    upload
 }

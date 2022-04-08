@@ -14,7 +14,7 @@ routes.get('/tittle/:tittle', movieController.getMovieByTittle)
 
 routes.get('/gender/:id', movieController.getMovieByGender)
 
-routes.post('/', auth, movieController.createMovie)
+routes.post('/', auth, movieController.upload, movieController.createMovie)
 
 routes.put('/setCharacters/:id', auth, movieController.setCharacters)
 
