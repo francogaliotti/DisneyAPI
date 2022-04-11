@@ -5,9 +5,24 @@ const { User } = require('../sequelize');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
 const auth = require('../config/auth');
+require('dotenv').config()
+const sgMail = require ('@sendgrid/mail')
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+
+const sendMail = async (msg) =>{
+    try {
+        await sgMail.send(msg)
+        console.log("Message sent successfully")
+    } catch (err){
+        console.log(err)
+        if (err.response){
+            console.error(err.response.body)
+        }
+    }
+}
 
 const login = (req, res) => {
     let {username, password} = req.body;
@@ -50,6 +65,12 @@ const register = (req, res) => {
             res.json({
                 user: user,
                 token: token
+            })
+            sendMail({
+                to:user.email,
+                from:"francogaliotti@gmail.com",
+                subject:"Welcome",
+                text:"Welcome to the Disney API! Your username is: "+user.username
             })
         }).catch(err => {
             res.status(500).json(err)

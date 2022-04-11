@@ -151,7 +151,6 @@ const upload = multer({
         const fileTypes = /jpeg|jpg|png|gif/
         const mimType = fileTypes.test(file.mimetype)
         const extName = fileTypes.test(path.extname(file.originalname))
-        console.log(extName , mimType)
         if(mimType && extName){
             return cb(null, true)
         } else {
