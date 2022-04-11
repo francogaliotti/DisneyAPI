@@ -70,7 +70,7 @@ const register = (req, res) => {
                 to:user.email,
                 from:"francogaliotti@gmail.com",
                 subject:"Welcome",
-                text:"Welcome to the Disney API! Your username is: "+user.username
+                text:"Welcome "+ user.username+" to the Disney API!"
             })
         }).catch(err => {
             res.status(500).json(err)
