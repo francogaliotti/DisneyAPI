@@ -82,12 +82,12 @@ const register = (req, res) => {
     }
 
 }
-sendMail({
+/*sendMail({
     to:"francogaliotti@gmail.com",
     from:"francogaliotti@gmail.com",
     subject:"Welcome",
     text:"Welcome  to the Disney API!"
-})
+})*/
 
 module.exports = {
     login,
