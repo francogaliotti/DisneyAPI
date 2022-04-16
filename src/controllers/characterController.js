@@ -128,14 +128,14 @@ const upload = multer({
         }
     }),
     limits: {
-        fileSize: '5000000' 
+        fileSize: '5000000'
     },
     fileFilter: (req, file, cb) => {
         const fileTypes = /jpeg|jpg|png|gif/
         const mimType = fileTypes.test(file.mimetype)
         const extName = fileTypes.test(path.extname(file.originalname))
-        console.log(extName , mimType)
-        if(mimType && extName){
+        console.log(extName, mimType)
+        if (mimType && extName) {
             return cb(null, true)
         } else {
             cb('Give proper files format to upload')

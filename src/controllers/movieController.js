@@ -132,7 +132,6 @@ const updateMovie = (req, res) => {
             })
         })
     })
-    
 }
 
 const deleteMovie = (req, res) => {
