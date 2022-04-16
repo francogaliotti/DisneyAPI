@@ -19,7 +19,7 @@ routes.get('/movie/:idMovie', characterController.getCharactersByMovie)
 
 routes.post('/', auth, characterController.upload, characterController.createCharacter)
 
-routes.put('/:id', auth, characterController.updateCharacter)
+routes.put('/:id', auth, characterController.upload, characterController.updateCharacter)
 
 routes.delete('/:id', auth, characterController.deleteCharacter)
 

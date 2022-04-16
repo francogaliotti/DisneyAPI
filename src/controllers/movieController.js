@@ -110,16 +110,29 @@ const setCharacters = (req, res) => {
 
 const updateMovie = (req, res) => {
     let id = req.params.id
-    let newMovie = req.body
-    Movie.findOne({
+    Gender.findOne({
         where: {
-            id: id
+            id: req.body.genderId
         }
-    }).then(movie => {
-        movie.update(newMovie).then(movie => {
-            res.send('movie updated')
+    }).then(gender => {
+        let newMovie = {
+            tittle: req.body.tittle,
+            image: req.file.path,
+            creationDate: req.body.creationDate,
+            rate: req.body.rate,
+            genderId: gender.id
+        }
+        Movie.findOne({
+            where: {
+                id: id
+            }
+        }).then(movie => {
+            movie.update(newMovie).then(movie => {
+                res.send('movie updated')
+            })
         })
     })
+    
 }
 
 const deleteMovie = (req, res) => {

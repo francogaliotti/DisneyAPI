@@ -18,7 +18,7 @@ routes.post('/', auth, movieController.upload, movieController.createMovie)
 
 routes.put('/setCharacters/:id', auth, movieController.setCharacters)
 
-routes.put('/:id', auth, movieController.updateMovie)
+routes.put('/:id', auth, movieController.upload, movieController.updateMovie)
 
 routes.delete('/:id', auth, movieController.deleteMovie)
 

@@ -79,7 +79,13 @@ const createCharacter = (req, res) => {
 
 const updateCharacter = (req, res) => {
     let id = req.params.id
-    let newCharacter = req.body
+    let newCharacter = {
+        name: req.body.name,
+        image: req.file.path,
+        age: req.body.age,
+        weight: req.body.weight,
+        history: req.body.history
+    }
     Character.findOne({
         where: {
             id: id
